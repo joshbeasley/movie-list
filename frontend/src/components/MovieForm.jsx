@@ -14,7 +14,7 @@ export const MovieForm = ({open, handleOpen, handleClose}) => {
       setValid(false);
     } else {
       try {
-        const response = await fetch('http://localhost:8080/movies',
+        await fetch('http://localhost:8080/movies',
           {
             method: "POST",
             headers: {
