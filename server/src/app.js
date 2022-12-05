@@ -16,7 +16,22 @@ app.get('/movies', async (req, res) => {
     res.sendStatus(404);
     console.log(err);
   }
-  
+})
+
+app.post('/movies', async (req, res) => {
+  try {
+    const maxIdQuery = await knex('movie').max('id as maxId').first();
+    let num = maxIdQuery.maxId + 1;
+    let newMovie = {
+      id: num,
+      title: req.body.title
+    }
+    await knex('movie').insert(newMovie);
+    res.status(201).send(newMovie);
+  } catch (err) {
+    res.sendStatus(400);
+    console.log(err);
+  }
 })
 
 app.listen(port, () => {
